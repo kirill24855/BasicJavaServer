@@ -1,14 +1,11 @@
 import KnockKnockProtocol.KnockKnockProtocol;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
-public class KnockKnockServer {
+public class Server {
 
 	private static final int PORT = 4444;
 
@@ -21,26 +18,26 @@ public class KnockKnockServer {
 			System.exit(1);
 		}
 
-		Socket clientSocket = null;
+		Socket socket = null;
 		try {
-			clientSocket = serverSocket.accept();
+			socket = serverSocket.accept();
 		} catch (IOException e) {
 			System.err.println("Accept failed.");
 			System.exit(1);
 		}
 
-		PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+		PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 		BufferedReader in = new BufferedReader(
 			new InputStreamReader(
-				clientSocket.getInputStream()
+				socket.getInputStream()
 			)
 		);
 		String inputLine, outputLine;
 		KnockKnockProtocol kkp = new KnockKnockProtocol();
 
-		outputLine = kkp.processInput(null);
+		/*outputLine = kkp.processInput("null");
 		out.println(outputLine);
-
+*/
 		while ((inputLine = in.readLine()) != null) {
 			outputLine = kkp.processInput(inputLine);
 			out.println(outputLine);
@@ -49,9 +46,7 @@ public class KnockKnockServer {
 
 		out.close();
 		in.close();
-		clientSocket.close();
+		socket.close();
 		serverSocket.close();
-
-		System.out.println("Hello World!");
 	}
 }

@@ -6,4 +6,7 @@ public class KnockKnockProtocol {
 		return input;
 	}
 
+	public int processInput(int input) {
+		return input * 2;
+	}
 }
