@@ -3,9 +3,8 @@ import KnockKnockProtocol.KnockKnockProtocol;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 
-public class Server {
+public class ConsoleServer {
 
 	private static final int PORT = 4444;
 
@@ -36,12 +35,13 @@ public class Server {
 		KnockKnockProtocol kkp = new KnockKnockProtocol();
 
 		/*outputLine = kkp.processInput("null");
-		out.println(outputLine);
-*/
-		while ((inputLine = in.readLine()) != null) {
+		out.println(outputLine);*/
+
+		while (true) {
+			inputLine = in.readLine();
 			outputLine = kkp.processInput(inputLine);
 			out.println(outputLine);
-			if (outputLine.equals("Bye.")) break;
+			if (outputLine.equals("break")) break;
 		}
 
 		out.close();

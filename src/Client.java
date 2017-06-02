@@ -11,11 +11,17 @@ public class Client {
 		Socket clientSocket = new Socket("127.0.0.1", PORT);
 		Scanner serverScan = new Scanner(clientSocket.getInputStream());
 
-		System.out.println("Enter string");
-		String number = systemScan.nextLine();
+		String input;
 
-		PrintStream stream = new PrintStream(clientSocket.getOutputStream());
-		stream.println(number);
-		System.out.println(serverScan.nextLine());
+		while (true) {
+			input = systemScan.nextLine();
+
+			PrintStream stream = new PrintStream(clientSocket.getOutputStream());
+			stream.println(input);
+
+			System.out.println(serverScan.nextLine());
+
+			if (input.equals("break")) break;
+		}
 	}
 }
